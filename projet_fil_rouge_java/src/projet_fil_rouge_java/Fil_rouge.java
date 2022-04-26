@@ -68,12 +68,11 @@ public class Fil_rouge extends JFrame implements ActionListener{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		
+		/*Product Frame*/
 		tabbedPane.addTab("Product", null, panel, null);
 		
 		
 		panel.add(lblNewLabel);
-		
 		
 		panel.add(btnNewButtonTest);
 		btnNewButtonTest.addActionListener(this);
@@ -82,12 +81,15 @@ public class Fil_rouge extends JFrame implements ActionListener{
 		panel.add(textField);
 		textField.setColumns(10);
 		
+		/*Fournisseur Frame*/
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Fournisseur", null, panel_1, null);
 		
+		/*Commande Frame*/
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Commande", null, panel_2, null);
 		
+		/*Stock Frame*/
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Stock", null, panel_3, null);
 	}
