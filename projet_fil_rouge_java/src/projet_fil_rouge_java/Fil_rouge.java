@@ -11,11 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 
 public class Fil_rouge extends JFrame{
@@ -30,8 +35,8 @@ public class Fil_rouge extends JFrame{
 	private JPanel productPan = new JPanel();
 	private JLabel lblNewLabel = new JLabel("Test");
 	private JTable condUniTable;
-	private JTable pacProTable;
 	private JTextField textField_1;
+	private JTable table;
 	
 	/**
 	 * Launch the application.
@@ -79,8 +84,9 @@ public class Fil_rouge extends JFrame{
 		productPan.add(inContentPane);
 		/*inContentPane.setLayout(new BorderLayout());*/
 		
-		JPanel leftPan = new JPanel(new FlowLayout());
-		leftPan.setPreferredSize(new Dimension(200, 600));
+		JPanel leftPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
+		leftPan.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		leftPan.setPreferredSize(new Dimension(170, 600));
 		/*productPan.add(leftPan, BorderLayout.WEST);*/
 		
 		JLabel lblNewLabel_1 = new JLabel("Test Titre");
@@ -113,7 +119,8 @@ public class Fil_rouge extends JFrame{
 		textField = new JTextField();
 		
 		
-		JPanel centerPan = new JPanel(new FlowLayout());
+		JPanel centerPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 300, 100));
+		centerPan.setBorder(new LineBorder(new Color(0, 0, 0)));
 		centerPan.setPreferredSize(new Dimension(400, 600));
 		/*productPan.add(centerPan);*/
 		
@@ -127,6 +134,7 @@ public class Fil_rouge extends JFrame{
 		centerPan.add(lblNewLabel_2);
 		
 		JPanel rightPan = new JPanel(new FlowLayout());
+		rightPan.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rightPan.setPreferredSize(new Dimension(400, 600));
 	
 		/*productPan.add(rightPan, BorderLayout.EAST);*/
@@ -167,15 +175,32 @@ public class Fil_rouge extends JFrame{
 		tabbedPane.addTab("Stock", null, stockPan, null);
 		
 		/*Côté bdd*/
+		/*Page Condition/Unité*/
 		JPanel condUniPan = new JPanel();
+		condUniPan.setPreferredSize(new Dimension(400, 500));
 		bddPan.addTab("Condition/Unit", null, condUniPan, null);
 		
+		/*Section Table*/
 		JPanel tablePan = new JPanel();
+		tablePan.setPreferredSize(new Dimension(380, 350));
 		condUniPan.add(tablePan);
+		/*Table Model*/
+		DefaultTableModel model = new DefaultTableModel(30,5);
+		condUniTable = new JTable(model);
+		/*Columns name*/
+		String col[] = {"Product","Nom","Fournisseur","Prix","Date Ajout"}; 
+		for(int i=0;i<condUniTable.getColumnCount();i++)
+			{
+		TableColumn column1 = condUniTable.getTableHeader().getColumnModel().getColumn(i);  
+		column1.setHeaderValue(col[i]);
+			}
+		/*Scrollable Table*/
+		JScrollPane condUniTableSP= new JScrollPane (condUniTable);
+		condUniTableSP.setPreferredSize(new Dimension(380, 350) );
 		
-		condUniTable = new JTable(22,5);
-		tablePan.add(condUniTable);
+		tablePan.add(condUniTableSP);
 		
+		/*Buttons section*/
 		JPanel btnTabblePan = new JPanel();
 		condUniPan.add(btnTabblePan, BorderLayout.SOUTH);
 		
@@ -188,11 +213,28 @@ public class Fil_rouge extends JFrame{
 		JButton btnDelBdd = new JButton("Supprimer");
 		btnTabblePan.add(btnDelBdd);
 		
+		/*Page Package/Product*/
 		JPanel pacProPan = new JPanel();
+		pacProPan.setPreferredSize(new Dimension(400, 500));
 		bddPan.addTab("Package/Product", null, pacProPan, null);
 		
-		pacProTable = new JTable(22,5);
-		pacProPan.add(pacProTable);
+		JPanel tablePan_1 = new JPanel();
+		pacProPan.add(tablePan_1);
+		
+		table = new JTable(22, 5);
+		tablePan_1.add(table);
+		
+		JPanel btnTabblePan_1 = new JPanel();
+		pacProPan.add(btnTabblePan_1);
+		
+		JButton btnCreatBdd_1 = new JButton("Cr\u00E9er");
+		btnTabblePan_1.add(btnCreatBdd_1);
+		
+		JButton btnModBdd_1 = new JButton("Modifier");
+		btnTabblePan_1.add(btnModBdd_1);
+		
+		JButton btnDelBdd_1 = new JButton("Supprimer");
+		btnTabblePan_1.add(btnDelBdd_1);
 	}
 	/**
 	 * Listen Button
