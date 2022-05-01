@@ -1,6 +1,7 @@
 package projet_fil_rouge_java;
 
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -26,7 +27,7 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
-
+import View.*;
 
 public class Fil_rouge extends JFrame{
 
@@ -90,23 +91,23 @@ public class Fil_rouge extends JFrame{
 		
 		/*Product Frame*/
 		tabbedPane.addTab("Product", null, productPan, null);
-		JPanel inContentPane = new JPanel();
-		productPan.add(inContentPane);
+		JPanel inContentPanePro = new JPanel();
+		productPan.add(inContentPanePro);
 		/*inContentPane.setLayout(new BorderLayout());*/
 		
-		JPanel leftPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
-		leftPan.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		leftPan.setPreferredSize(new Dimension(170, 525));
+		JPanel leftPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
+		leftPanPro.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		leftPanPro.setPreferredSize(new Dimension(170, 525));
 		/*productPan.add(leftPan, BorderLayout.WEST);*/
 		
 		JLabel lblNewLabel_1 = new JLabel("Test Titre");
-		leftPan.add(lblNewLabel_1);
+		leftPanPro.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Création");
-		leftPan.add(btnNewButton);
+		leftPanPro.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Suppréssion");
-		leftPan.add(btnNewButton_1);
+		leftPanPro.add(btnNewButton_1);
 		
 		
 		
@@ -127,9 +128,9 @@ public class Fil_rouge extends JFrame{
 		btnNewButtonTest.addActionListener(this::btnTestListener);
 		
 		
-		JPanel centerPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		centerPan.setBorder(new LineBorder(new Color(0, 0, 0)));
-		centerPan.setPreferredSize(new Dimension(400, 525));
+		JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		centerPanPro.setBorder(new LineBorder(new Color(0, 0, 0)));
+		centerPanPro.setPreferredSize(new Dimension(400, 525));
 		/*productPan.add(centerPan);*/
 		
 		/*String[] data = {"one", "two", "three", "four"};
@@ -142,19 +143,19 @@ public class Fil_rouge extends JFrame{
 		topCenterPan.setLayout(new GridLayout(3,4,5,5));
 		topCenterPan.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		topCenterPan.setPreferredSize(new Dimension(400, 100));
-		centerPan.add(topCenterPan, BorderLayout.NORTH);
+		centerPanPro.add(topCenterPan, BorderLayout.NORTH);
 		
 		JPanel voidTopLeft = new JPanel();
 		topCenterPan.add(voidTopLeft);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nom");
-		topCenterPan.add(lblNewLabel_2);
+		JLabel nameProductLabel = new JLabel("Nom");
+		topCenterPan.add(nameProductLabel);
 		
-		JLabel lblNewLabel_4 = new JLabel("Date de Cr\u00E9ation");
-		topCenterPan.add(lblNewLabel_4);
+		JLabel creationDateLabel = new JLabel("Date de Cr\u00E9ation");
+		topCenterPan.add(creationDateLabel);
 		
-		JLabel lblNewLabel_5 = new JLabel("Utilisateur");
-		topCenterPan.add(lblNewLabel_5);
+		JLabel creationUserLabel = new JLabel("Utilisateur");
+		topCenterPan.add(creationUserLabel);
 		
 		/*@SuppressWarnings("unused")
 		Fil_rouge obj = new Fil_rouge();*/
@@ -166,13 +167,17 @@ public class Fil_rouge extends JFrame{
 		topCenterPan.add(textNomField);
 		textNomField.setColumns(10);
 		
-		textPDateField = new JTextField();
+		JLabel textPDateField = new JLabel("");
+		textPDateField.setOpaque(true);
+		textPDateField.setBackground(Color.WHITE);
 		topCenterPan.add(textPDateField);
-		textPDateField.setColumns(10);
+		/*textPDateField.setColumns(10);*/
 		
-		textPUserField = new JTextField();
+		JLabel textPUserField = new JLabel("");
+		textPUserField.setOpaque(true);
+		textPUserField.setBackground(Color.WHITE);
 		topCenterPan.add(textPUserField);
-		textPUserField.setColumns(10);
+		/*textPUserField.setColumns(10);*/
 		
 		JPanel voidBotLeft = new JPanel();
 		topCenterPan.add(voidBotLeft);
@@ -194,7 +199,7 @@ public class Fil_rouge extends JFrame{
 		/*Mid of center Pan*/
 		JPanel middleCenterPan = new JPanel();
 		middleCenterPan.setPreferredSize(new Dimension(400, 260));
-		centerPan.add(middleCenterPan);
+		centerPanPro.add(middleCenterPan);
 		
 		JPanel topMidCenterPan = new JPanel();
 		topMidCenterPan.setLayout(new GridLayout(3,5));
@@ -257,26 +262,32 @@ public class Fil_rouge extends JFrame{
 		
 		addAndResultPan.add(btnNewButtonTest);
 		
-		JPanel controlResultPan = new JPanel(new FlowLayout());
+		JPanel controlResultPan = new JPanel(new GridLayout(3,1));
 		controlResultPan.setPreferredSize(new Dimension(300, 80));
 		addAndResultPan.add(controlResultPan);
 		
 		JLabel lblNewLabel = new JLabel("Le product a \u00E9t\u00E9 ajout\u00E9 \u00E0 la liste");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setOpaque(true);
 		lblNewLabel.setBackground(Color.GREEN);
 		controlResultPan.add(lblNewLabel);
 		
 		JLabel lblNewLabel_6 = new JLabel("Le product existe d\u00E9j\u00E0");
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setOpaque(true);
 		lblNewLabel_6.setBackground(Color.ORANGE);
 		controlResultPan.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Le product n'est pas conforme");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setOpaque(true);
 		lblNewLabel_7.setBackground(Color.RED);
 		controlResultPan.add(lblNewLabel_7);
 		
 		/*Bot of center Pan*/
 		JPanel botCenterPan = new JPanel();
 		botCenterPan.setPreferredSize(new Dimension(400, 150));
-		centerPan.add(botCenterPan);
+		centerPanPro.add(botCenterPan);
 		
 		JLabel productListTitle = new JLabel("Liste des Products :");
 		botCenterPan.add(productListTitle);
@@ -295,21 +306,21 @@ public class Fil_rouge extends JFrame{
 		
 		/*Right Section*/
 		
-		JPanel rightPan = new JPanel(new FlowLayout());
-		rightPan.setBorder(new LineBorder(new Color(0, 0, 0)));
-		rightPan.setPreferredSize(new Dimension(400, 525));
+		JPanel rightPanPro = new JPanel(new FlowLayout());
+		rightPanPro.setBorder(new LineBorder(new Color(0, 0, 0)));
+		rightPanPro.setPreferredSize(new Dimension(400, 525));
 	
 		/*productPan.add(rightPan, BorderLayout.EAST);*/
-		inContentPane.add(leftPan, BorderLayout.WEST);
-		inContentPane.add(centerPan);
-		inContentPane.add(rightPan, BorderLayout.EAST);
+		inContentPanePro.add(leftPanPro, BorderLayout.WEST);
+		inContentPanePro.add(centerPanPro);
+		inContentPanePro.add(rightPanPro, BorderLayout.EAST);
 		
 		JLabel lblNewLabel_3 = new JLabel("Recherche");
-		rightPan.add(lblNewLabel_3);
+		rightPanPro.add(lblNewLabel_3);
 		
 		JPanel surchPan = new JPanel();
 		surchPan.setPreferredSize(new Dimension(400, 50));
-		rightPan.add(surchPan);
+		rightPanPro.add(surchPan);
 		
 		textField_1 = new JTextField();
 		surchPan.add(textField_1);
@@ -321,13 +332,25 @@ public class Fil_rouge extends JFrame{
 		
 		JTabbedPane bddPan = new JTabbedPane(JTabbedPane.TOP);
 		bddPan.setBorder(new LineBorder(new Color(0, 0, 0)));
-		rightPan.add(bddPan);
+		rightPanPro.add(bddPan);
 		
 		
 		
 		/*Fournisseur Frame*/
 		JPanel supplierPan = new JPanel();
 		tabbedPane.addTab("Fournisseur", null, supplierPan, null);
+		
+		JPanel inContentPanSup = new JPanel();
+		supplierPan.add(inContentPanSup);
+		
+		JPanel leftPanSup = new JPanel();
+		inContentPanSup.add(leftPanSup);
+		
+		JPanel centerPanSup = new JPanel();
+		inContentPanSup.add(centerPanSup);
+		
+		JPanel rightPanSup = new JPanel();
+		inContentPanSup.add(rightPanSup);
 		
 		/*Commande Frame*/
 		JPanel packagePan = new JPanel();
