@@ -298,14 +298,14 @@ private void rightSection() {
 	rightPanPro.add(bddPan);
 }
 private void supplierPage() {
-	JPanel ProPanPro = new JPanel();
-	ProPanPro.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Fournisseur", null, ProPanPro, null);
+	JPanel proPanSup = new JPanel();
+	proPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Fournisseur", null, proPanSup, null);
 	
 	/*Section Table*/
 	JPanel tablePan = new JPanel();
 	tablePan.setPreferredSize(new Dimension(380, 350));
-	ProPanPro.add(tablePan);
+	proPanSup.add(tablePan);
 	/*Table Model*/
 	DefaultTableModel model = new DefaultTableModel(30,5);
 	condUniTable = new JTable(model);
@@ -324,7 +324,7 @@ private void supplierPage() {
 	
 	/*Buttons section*/
 	JPanel btnTabblePan = new JPanel();
-	ProPanPro.add(btnTabblePan, BorderLayout.SOUTH);
+	proPanSup.add(btnTabblePan, BorderLayout.SOUTH);
 	
 	JButton btnCreatBdd = new JButton("Cr\u00E9er");
 	btnTabblePan.add(btnCreatBdd);
@@ -337,22 +337,22 @@ private void supplierPage() {
 }
 private void otherPage() {
 	/*Page Fournisseur*/
-	JPanel supPanPro = new JPanel();
-	supPanPro.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Product", null, supPanPro, null);
+	JPanel supPanSup = new JPanel();
+	supPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Product", null, supPanSup, null);
 	
 
 	
 	/*Page Commande*/
 	
-	JPanel pacPanPro = new JPanel();
-	pacPanPro.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Commande", null, pacPanPro, null);
+	JPanel pacPanSup = new JPanel();
+	pacPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Commande", null, pacPanSup, null);
 	
 	/*Page Stock*/
 	
-	JPanel stoPanPro = new JPanel();
-	stoPanPro.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Stock", null, stoPanPro, null);
+	JPanel stoPanSup = new JPanel();
+	stoPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Stock", null, stoPanSup, null);
 }
 }

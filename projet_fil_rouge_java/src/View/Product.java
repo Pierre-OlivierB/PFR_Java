@@ -30,7 +30,7 @@ import projet_fil_rouge_java.Fil_rouge;
 public class Product extends JPanel{
 
 	private static final long serialVersionUID = -4610886238798936616L;
-	private JFrame frame;
+	/*private JFrame frame;*/
 	private JButton btnNewButtonTest = new JButton("Cliquez-moi");
 	/*private JPanel productPan = new JPanel();*/
 	private JTable condUniTable;
@@ -48,7 +48,7 @@ public class Product extends JPanel{
 	private JPanel leftPanPro;
 	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;
-	private Supplier SupPage;
+	/*private Supplier SupPage;*/
 	
 	
 	/*public static void main(String[] args) {
@@ -70,21 +70,11 @@ public class Product extends JPanel{
 	}
 	
 	private void initialize() {
-	/*frame = new JFrame();
-	frame.setSize(1000,600);
-	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	frame.setLocationRelativeTo(null);*/
 	
-	/*contentPane=(JPanel)this.getContentPane();*/
 	contentPane=this;
-	/*tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	contentPane.add(tabbedPane);*/
 	
 	/*Product Frame*/
 	productFrame();
-	
-	/*Lambda si 1 seule methode abstraite*/
-	//btnNewButtonTest.addActionListener((e)->btnTestListener(e));
 	
 	/*Référence sur methode. Possible que si methode utilisée*/
 	btnNewButtonTest.addActionListener(this::btnTestListener);
