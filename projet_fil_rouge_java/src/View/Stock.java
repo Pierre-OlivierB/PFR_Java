@@ -1,5 +1,7 @@
 package View;
 
-public class Stock {
+import javax.swing.JPanel;
+
+public class Stock extends JPanel{
 
 }

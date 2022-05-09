@@ -27,12 +27,12 @@ import javax.swing.table.TableColumn;
 import projet_fil_rouge_java.Fil_rouge;
 
 
-public class Product extends JFrame{
+public class Product extends JPanel{
 
 	private static final long serialVersionUID = -4610886238798936616L;
 	private JFrame frame;
 	private JButton btnNewButtonTest = new JButton("Cliquez-moi");
-	private JPanel productPan = new JPanel();
+	/*private JPanel productPan = new JPanel();*/
 	private JTable condUniTable;
 	private JTextField textField_1;
 	private JTable table;
@@ -48,6 +48,7 @@ public class Product extends JFrame{
 	private JPanel leftPanPro;
 	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;
+	private Supplier SupPage;
 	
 	
 	/*public static void main(String[] args) {
@@ -64,10 +65,6 @@ public class Product extends JFrame{
 	}*/
 	
 	public Product() {
-		new JFrame();
-		this.setSize(1000,600);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLocationRelativeTo(null);
 		initialize();
 		
 	}
@@ -78,9 +75,10 @@ public class Product extends JFrame{
 	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	frame.setLocationRelativeTo(null);*/
 	
-	contentPane=(JPanel)this.getContentPane();
-	tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	contentPane.add(tabbedPane);
+	/*contentPane=(JPanel)this.getContentPane();*/
+	contentPane=this;
+	/*tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	contentPane.add(tabbedPane);*/
 	
 	/*Product Frame*/
 	productFrame();
@@ -109,17 +107,7 @@ public class Product extends JFrame{
 	
 	rightSection();
 	
-	/*Fournisseur Frame*/
-	JPanel supplierPan = new JPanel();
-	tabbedPane.addTab("Fournisseur", null, supplierPan, null);
-	
-	/*Commande Frame*/
-	JPanel packagePan = new JPanel();
-	tabbedPane.addTab("Commande", null, packagePan, null);
-	
-	/*Stock Frame*/
-	JPanel stockPan = new JPanel();
-	tabbedPane.addTab("Stock", null, stockPan, null);
+
 	
 	/*Côté bdd*/
 	/*Page Product*/		
@@ -137,9 +125,9 @@ private void btnTestListener(ActionEvent event) {
 System.out.println("btn click");
 }
 private void productFrame() {
-	tabbedPane.addTab("Product", null, productPan, null);
+	/*tabbedPane.addTab("Product", null, productPan, null);*/
 	inContentPanePro = new JPanel();
-	productPan.add(inContentPanePro);
+	contentPane.add(inContentPanePro);
 	
 	leftPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
 	leftPanPro.setBorder(new LineBorder(new Color(0, 0, 0), 2));

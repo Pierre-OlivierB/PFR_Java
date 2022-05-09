@@ -55,7 +55,7 @@ public class Fil_rouge{
 	private JPanel leftPanPro;
 	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;*/
-	private Product test;
+	private View test;
 	/**
 	 * Launch the application.
 	 */
@@ -89,7 +89,7 @@ public class Fil_rouge{
 
 	private void initialize() {
 
-		test = new Product();	
+		test = new View();	
 
 	}
 		
