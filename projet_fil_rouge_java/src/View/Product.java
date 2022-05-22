@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,6 +38,8 @@ public class Product extends JPanel{
 	private static final long serialVersionUID = -4610886238798936616L;
 	/*private JFrame frame;*/
 	private JButton btnNewButtonTest = new JButton("Cliquez-moi");
+	private JButton btnProductAddToList = new JButton("Ajouter la liste");
+	private JButton btnProductDelChoice = new JButton("Vider la liste");
 	/*private JPanel productPan = new JPanel();*/
 	private JTable condUniTable;
 	private JTextField textField_1;
@@ -44,14 +48,20 @@ public class Product extends JPanel{
 	private JTextField textNomField;
 	private JTextField textPDateField;
 	private JTextField textPUserField;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField brandNameTxt;
+	private JTextField priceProTxt;
 	private JPanel contentPane;
 	private JPanel inContentPanePro;
 	private JTabbedPane tabbedPane;
 	private JPanel leftPanPro;
 	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;
+	private JLabel lblSuccessAdd = new JLabel("Le product a \u00E9t\u00E9 ajout\u00E9 \u00E0 la liste");
+	private JLabel lblAlreadyExist = new JLabel("Le product existe d\u00E9j\u00E0");
+	private JLabel lblNotOk = new JLabel("Le product n'est pas conforme");
+	private Date date = new Date();
+	private SimpleDateFormat currentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	
 	//@SuppressWarnings("unused")
 	//private MyConnexion con = new MyConnexion();
 	private MArticle art = new MArticle();
@@ -84,7 +94,7 @@ public class Product extends JPanel{
 	productFrame();
 	
 	/*Référence sur methode. Possible que si methode utilisée*/
-	btnNewButtonTest.addActionListener(this::btnTestListener);
+	//btnNewButtonTest.addActionListener(this::btnTestListener);
 	
 	
 	/*JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));*/
@@ -116,8 +126,13 @@ public class Product extends JPanel{
  * Listen Button
  */
 
-private void btnTestListener(ActionEvent event) {
-System.out.println("btn click");
+private void btnProductDelChoiceListener(ActionEvent event) {
+System.out.println("btn del");
+}
+private void btnProductAddtoListListener(ActionEvent event) {
+	art.insertProduct(textNomField.getText(), brandNameTxt.getText(), textPUserField.getText());
+
+	lblSuccessAdd.setVisible(true);
 }
 private void productFrame() {
 	/*tabbedPane.addTab("Product", null, productPan, null);*/
@@ -133,11 +148,13 @@ private void productFrame() {
 	lblNewLabel_1.setOpaque(true);
 	lblNewLabel_1.setBackground(Color.WHITE);
 	
-	JButton btnNewButton = new JButton("Ajouter la liste");
-	leftPanPro.add(btnNewButton);
+	/*btnProductAddToList = new JButton("Ajouter la liste");*/
+	leftPanPro.add(btnProductAddToList);
 	
-	JButton btnNewButton_1 = new JButton("Vider la liste");
-	leftPanPro.add(btnNewButton_1);
+	btnProductAddToList.addActionListener(this::btnProductAddtoListListener);
+	
+	leftPanPro.add(btnProductDelChoice);
+	btnProductDelChoice.addActionListener(this::btnProductDelChoiceListener);
 }
 	
 private void topPanelCenter() {
@@ -171,11 +188,13 @@ private void topPanelCenter() {
 	JLabel textPDateField = new JLabel("");
 	textPDateField.setOpaque(true);
 	textPDateField.setBackground(Color.WHITE);
+	textPDateField.setText(currentDateTime.format(date));
 	topCenterPan.add(textPDateField);
 	
 	JLabel textPUserField = new JLabel("");
 	textPUserField.setOpaque(true);
 	textPUserField.setBackground(Color.WHITE);
+	textPUserField.setText("1");
 	topCenterPan.add(textPUserField);
 	
 	JPanel voidBotLeft = new JPanel();
@@ -233,22 +252,24 @@ private void midCenterPan() {
 	articlePriceTitle.setHorizontalAlignment(SwingConstants.CENTER);
 	topMidCenterPan.add(articlePriceTitle);
 	
-	JComboBox comboBox = new JComboBox();
-	topMidCenterPan.add(comboBox);
+	//add Supplier choice off bdd to CB
+	String supChoice [] = art.supChoiceCBSet();
+	JComboBox supChoiceCB = new JComboBox(supChoice);
+	topMidCenterPan.add(supChoiceCB);
 	
 	JPanel voidSupBotMidLeft = new JPanel();
 	topMidCenterPan.add(voidSupBotMidLeft);
 	
-	textField_2 = new JTextField();
-	topMidCenterPan.add(textField_2);
-	textField_2.setColumns(10);
+	brandNameTxt = new JTextField();
+	topMidCenterPan.add(brandNameTxt);
+	brandNameTxt.setColumns(10);
 	
 	JPanel voidSupBotMidRight = new JPanel();
 	topMidCenterPan.add(voidSupBotMidRight);
 	
-	textField_3 = new JTextField();
-	topMidCenterPan.add(textField_3);
-	textField_3.setColumns(10);
+	priceProTxt = new JTextField();
+	topMidCenterPan.add(priceProTxt);
+	priceProTxt.setColumns(10);
 	
 	JPanel addAndResultPan = new JPanel();
 	addAndResultPan.setPreferredSize(new Dimension(400, 200));
@@ -260,23 +281,26 @@ private void midCenterPan() {
 	controlResultPan.setPreferredSize(new Dimension(400, 150));
 	addAndResultPan.add(controlResultPan);
 	
-	JLabel lblNewLabel = new JLabel("Le product a \u00E9t\u00E9 ajout\u00E9 \u00E0 la liste");
-	lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel.setOpaque(true);
-	lblNewLabel.setBackground(Color.GREEN);
-	controlResultPan.add(lblNewLabel);
 	
-	JLabel lblNewLabel_6 = new JLabel("Le product existe d\u00E9j\u00E0");
-	lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel_6.setOpaque(true);
-	lblNewLabel_6.setBackground(Color.ORANGE);
-	controlResultPan.add(lblNewLabel_6);
+	lblSuccessAdd.setHorizontalAlignment(SwingConstants.CENTER);
+	lblSuccessAdd.setOpaque(true);
+	lblSuccessAdd.setBackground(Color.GREEN);
+	lblSuccessAdd.setVisible(false);
+	controlResultPan.add(lblSuccessAdd);
 	
-	JLabel lblNewLabel_7 = new JLabel("Le product n'est pas conforme");
-	lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel_7.setOpaque(true);
-	lblNewLabel_7.setBackground(Color.RED);
-	controlResultPan.add(lblNewLabel_7);
+	
+	lblAlreadyExist.setHorizontalAlignment(SwingConstants.CENTER);
+	lblAlreadyExist.setOpaque(true);
+	lblAlreadyExist.setBackground(Color.ORANGE);
+	lblAlreadyExist.setVisible(false);
+	controlResultPan.add(lblAlreadyExist);
+	
+	
+	lblNotOk.setHorizontalAlignment(SwingConstants.CENTER);
+	lblNotOk.setOpaque(true);
+	lblNotOk.setBackground(Color.RED);
+	lblNotOk.setVisible(false);
+	controlResultPan.add(lblNotOk);
 }
 private void botCenterPan() {
 	JPanel botCenterPan = new JPanel();
@@ -342,14 +366,7 @@ private void productPage() {
 	String col[] = {"Product","Nom","Fournisseur","Prix","Date Ajout"};
 	
 	try {
-		//con.openConnection();
-		//String query ="SELECT * FROM article ";
-		//PreparedStatement declaration= accessDataBase.prepareStatement(query);
-		//con.openConnection();
 		condUniTable.setModel(art.readAll());
-		//con.closeConnection();
-		
-		//condUniTable.setColumnModel(art.readAll());
 	}catch(Exception e) {
 		System.out.println(e);
 	}
