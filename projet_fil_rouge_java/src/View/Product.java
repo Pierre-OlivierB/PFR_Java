@@ -7,6 +7,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,6 +26,8 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import Model.MArticle;
+import Model.MyConnexion;
 import projet_fil_rouge_java.Fil_rouge;
 
 
@@ -48,6 +52,9 @@ public class Product extends JPanel{
 	private JPanel leftPanPro;
 	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;
+	//@SuppressWarnings("unused")
+	//private MyConnexion con = new MyConnexion();
+	private MArticle art = new MArticle();
 	/*private Supplier SupPage;*/
 	
 	
@@ -82,7 +89,7 @@ public class Product extends JPanel{
 	
 	/*JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));*/
 	centerPanPro.setBorder(new LineBorder(new Color(0, 0, 0)));
-	centerPanPro.setPreferredSize(new Dimension(400, 525));
+	centerPanPro.setPreferredSize(new Dimension(400, 680));
 	
 	/*Top panel of center*/
 	topPanelCenter();
@@ -96,8 +103,6 @@ public class Product extends JPanel{
 	/*Right Section*/
 	
 	rightSection();
-	
-
 	
 	/*Côté bdd*/
 	/*Page Product*/		
@@ -121,15 +126,17 @@ private void productFrame() {
 	
 	leftPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
 	leftPanPro.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-	leftPanPro.setPreferredSize(new Dimension(170, 525));
+	leftPanPro.setPreferredSize(new Dimension(170, 680));
 	
-	JLabel lblNewLabel_1 = new JLabel("Test Titre");
+	JLabel lblNewLabel_1 = new JLabel("Action sur la liste des produits");
 	leftPanPro.add(lblNewLabel_1);
+	lblNewLabel_1.setOpaque(true);
+	lblNewLabel_1.setBackground(Color.WHITE);
 	
-	JButton btnNewButton = new JButton("Création");
+	JButton btnNewButton = new JButton("Ajouter la liste");
 	leftPanPro.add(btnNewButton);
 	
-	JButton btnNewButton_1 = new JButton("Suppréssion");
+	JButton btnNewButton_1 = new JButton("Vider la liste");
 	leftPanPro.add(btnNewButton_1);
 }
 	
@@ -155,6 +162,7 @@ private void topPanelCenter() {
 	String product[]= {"Product","Ustensil","Ingrédient"};
 	combobox = new JComboBox(product);
 	topCenterPan.add(combobox);
+	
 	
 	textNomField = new JTextField();
 	topCenterPan.add(textNomField);
@@ -184,12 +192,12 @@ private void topPanelCenter() {
 }
 private void midCenterPan() {
 	JPanel middleCenterPan = new JPanel();
-	middleCenterPan.setPreferredSize(new Dimension(400, 260));
+	middleCenterPan.setPreferredSize(new Dimension(400, 400));
 	centerPanPro.add(middleCenterPan);
 	
 	JPanel topMidCenterPan = new JPanel();
 	topMidCenterPan.setLayout(new GridLayout(3,5));
-	topMidCenterPan.setPreferredSize(new Dimension(400, 130));
+	topMidCenterPan.setPreferredSize(new Dimension(400, 150));
 	middleCenterPan.add(topMidCenterPan);
 	
 	JPanel voidSupTopLeft = new JPanel();
@@ -243,13 +251,13 @@ private void midCenterPan() {
 	textField_3.setColumns(10);
 	
 	JPanel addAndResultPan = new JPanel();
-	addAndResultPan.setPreferredSize(new Dimension(400, 130));
+	addAndResultPan.setPreferredSize(new Dimension(400, 200));
 	middleCenterPan.add(addAndResultPan);
 	
 	addAndResultPan.add(btnNewButtonTest);
 	
 	JPanel controlResultPan = new JPanel(new GridLayout(3,1));
-	controlResultPan.setPreferredSize(new Dimension(300, 80));
+	controlResultPan.setPreferredSize(new Dimension(400, 150));
 	addAndResultPan.add(controlResultPan);
 	
 	JLabel lblNewLabel = new JLabel("Le product a \u00E9t\u00E9 ajout\u00E9 \u00E0 la liste");
@@ -293,7 +301,7 @@ private void botCenterPan() {
 private void rightSection() {
 	JPanel rightPanPro = new JPanel(new FlowLayout());
 	rightPanPro.setBorder(new LineBorder(new Color(0, 0, 0)));
-	rightPanPro.setPreferredSize(new Dimension(400, 525));
+	rightPanPro.setPreferredSize(new Dimension(400, 680));
 
 	inContentPanePro.add(leftPanPro, BorderLayout.WEST);
 	inContentPanePro.add(centerPanPro);
@@ -303,7 +311,7 @@ private void rightSection() {
 	rightPanPro.add(lblNewLabel_3);
 	
 	JPanel surchPan = new JPanel();
-	surchPan.setPreferredSize(new Dimension(400, 50));
+	surchPan.setPreferredSize(new Dimension(400, 90));
 	rightPanPro.add(surchPan);
 	
 	textField_1 = new JTextField();
@@ -320,18 +328,31 @@ private void rightSection() {
 }
 private void productPage() {
 	JPanel ProPanPro = new JPanel();
-	ProPanPro.setPreferredSize(new Dimension(400, 500));
+	ProPanPro.setPreferredSize(new Dimension(400, 580));
 	bddPan.addTab("Product", null, ProPanPro, null);
 	
 	/*Section Table*/
 	JPanel tablePan = new JPanel();
-	tablePan.setPreferredSize(new Dimension(380, 350));
+	tablePan.setPreferredSize(new Dimension(380, 450));
 	ProPanPro.add(tablePan);
 	/*Table Model*/
 	DefaultTableModel model = new DefaultTableModel(30,5);
 	condUniTable = new JTable(model);
 	/*Columns name*/
-	String col[] = {"Product","Nom","Fournisseur","Prix","Date Ajout"}; 
+	String col[] = {"Product","Nom","Fournisseur","Prix","Date Ajout"};
+	
+	try {
+		//con.openConnection();
+		//String query ="SELECT * FROM article ";
+		//PreparedStatement declaration= accessDataBase.prepareStatement(query);
+		//con.openConnection();
+		condUniTable.setModel(art.readAll());
+		//con.closeConnection();
+		
+		//condUniTable.setColumnModel(art.readAll());
+	}catch(Exception e) {
+		System.out.println(e);
+	}
 	for(int i=0;i<condUniTable.getColumnCount();i++)
 		{
 	TableColumn column1 = condUniTable.getTableHeader().getColumnModel().getColumn(i);  
@@ -339,7 +360,7 @@ private void productPage() {
 		}
 	/*Scrollable Table*/
 	JScrollPane condUniTableSP= new JScrollPane (condUniTable);
-	condUniTableSP.setPreferredSize(new Dimension(380, 350) );
+	condUniTableSP.setPreferredSize(new Dimension(380, 450) );
 	
 	tablePan.add(condUniTableSP);
 	

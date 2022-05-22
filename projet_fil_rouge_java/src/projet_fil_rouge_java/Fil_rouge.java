@@ -2,63 +2,59 @@ package projet_fil_rouge_java;
 
 
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.SwingConstants;
+
+import Model.MyConnexion;
 import View.*;
+
 
 public class Fil_rouge{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4862798308073302717L;
+	/*private static final long serialVersionUID = -4862798308073302717L;*/
+	private View test;
+	private MyConnexion first;
 	/*private JFrame frame;
-	/*private JPanel contentPane;
-	private JTabbedPane tabbedPane;*/
-	/*private JButton btnNewButtonTest = new JButton("Cliquez-moi");
+	private JPanel contentPane;
+	private JTabbedPane tabbedPane;
 	private JPanel productPan = new JPanel();
-	private JTable condUniTable;
-	private JTextField textField_1;
+	private JTextField surchTxtFld;
 	private JTable table;
 	private JComboBox combobox; 
-	private JTextField textNomField;
 	private JTextField textPDateField;
 	private JTextField textPUserField;
+	private JTextField supNameTxtF;
+	private JPanel inContentPanePac;
+	private JPanel leftPanPac;
+	private JPanel centerPanPac = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	private JTextField contactNameTxtF;
+	private JTextField contactFNameTxtF;
+	private JTextField contactNumberTxtF;
+	private JTextField textField;
+	private JPanel supplierPan = new JPanel();
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JPanel contentPane;
-	private JPanel inContentPanePro;
+	private JPanel inContentPaneSto;
 	private JTabbedPane tabbedPane;
-	private JPanel leftPanPro;
-	private JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));
-	private JTabbedPane bddPan;*/
-	private View test;
-	/**
-	 * Launch the application.
-	 */
+	private JPanel leftPanSto;
+	private JPanel centerPanSto = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	private JTextField pacTypeTxtFld;
+	private JTextField unitNameTxtFld;
+	private JTextField proNameTxtFld;
+	private JPanel middleCenterPan;
+	private JTextField pacTypTxtFld;
+	private JTextField weightTxtFld;
+	private JTextField unityNameTxtFld;
+	private JTextField nameTxtFld;
+	private JTextField firstNameTxtFld;
+	private JTextField phoneTxtFld;*/
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,6 +64,7 @@ public class Fil_rouge{
 					//start window
 					Fil_rouge window = new Fil_rouge();
 					window.test.setVisible(true);
+					/*window.frame.setVisible(true);*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,11 +85,21 @@ public class Fil_rouge{
 	 */
 
 	private void initialize() {
+		test = new View();
+		//first = new MyConnexion();
+		//first.openConnection();
+		//first.testConnection();
+		//first.closeConnection();
+		/*frame = new JFrame();
+		frame.setSize(1020,760);
+		contentPane=(JPanel)frame.getContentPane();*/
+	}}
 
-		test = new View();	
-
-	}
 		
-}
+		
+
+	
+		
+
 
 

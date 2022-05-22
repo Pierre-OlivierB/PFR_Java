@@ -41,6 +41,11 @@ public class Stock extends JPanel{
 	private JPanel leftPanSto;
 	private JPanel centerPanSto = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JTabbedPane bddPan;
+	private JPanel addAndResultPan;
+	private JTextField numberCmdTxtFld;
+	private JTextField qttTxtFld;
+	private JTextField statuTxtFld;
+	
 	
 	
 
@@ -54,24 +59,18 @@ public class Stock extends JPanel{
 	contentPane=this;
 	/*Product Frame*/
 	stockFrame();
-
-	
-	/*Référence sur methode. Possible que si methode utilisée*/
-	btnNewButtonTest.addActionListener(this::btnTestListener);
 	
 	
 	/*JPanel centerPanPro = new JPanel(new FlowLayout(FlowLayout.CENTER));*/
 	centerPanSto.setBorder(new LineBorder(new Color(0, 0, 0)));
-	centerPanSto.setPreferredSize(new Dimension(400, 525));
+	centerPanSto.setPreferredSize(new Dimension(400, 680));
 	
 	/*Top panel of center*/
 	topPanelCenter();
 	
 	/*Mid of center Pan*/
 	midCenterPan();
-	
-	/*Bot of center Pan*/
-	botCenterPan();
+	controlResultPan();
 	
 	/*Right Section*/
 	
@@ -93,22 +92,27 @@ private void btnTestListener(ActionEvent event) {
 System.out.println("btn click");
 }
 private void stockFrame() {
-	/*tabbedPane.addTab("Product", null, productPan, null);*/
 	inContentPaneSto = new JPanel();
 	contentPane.add(inContentPaneSto);
 	
 	leftPanSto = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 100));
 	leftPanSto.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-	leftPanSto.setPreferredSize(new Dimension(170, 525));
+	leftPanSto.setPreferredSize(new Dimension(170, 680));
 	
-	JLabel lblNewLabel_1 = new JLabel("Test Titre");
-	leftPanSto.add(lblNewLabel_1);
+	JLabel leftPanTitlelbl = new JLabel("<html>Action sur <br>le r\u00E9capituliatif <br>de la commande</html>");
+	leftPanTitlelbl.setBackground(Color.WHITE);
+	leftPanTitlelbl.setPreferredSize(new Dimension(110,80));
+	leftPanSto.add(leftPanTitlelbl);
 	
-	JButton btnNewButton = new JButton("Création");
-	leftPanSto.add(btnNewButton);
+	JButton addOrderBtn = new JButton("<html>Ajouter <br>la commande<br> au  stock</html>");
+	addOrderBtn.setHorizontalAlignment(SwingConstants.LEADING);
+	addOrderBtn.setPreferredSize(new Dimension(110,80));
+	leftPanSto.add(addOrderBtn);
 	
-	JButton btnNewButton_1 = new JButton("Suppréssion");
-	leftPanSto.add(btnNewButton_1);
+	JButton drainOrderBtn = new JButton("<html>Vider les champs</html>");
+	drainOrderBtn.setHorizontalAlignment(SwingConstants.LEADING);
+	drainOrderBtn.setPreferredSize(new Dimension(110,80));
+	leftPanSto.add(drainOrderBtn);
 }
 	
 private void topPanelCenter() {
@@ -118,38 +122,30 @@ private void topPanelCenter() {
 	topCenterPan.setPreferredSize(new Dimension(400, 100));
 	centerPanSto.add(topCenterPan, BorderLayout.NORTH);
 	
+	JLabel numberCmdLbl = new JLabel("Commande N\u00B0 :");
+	topCenterPan.add(numberCmdLbl);
+	
 	JPanel voidTopLeft = new JPanel();
 	topCenterPan.add(voidTopLeft);
 	
-	JLabel nameProductLabel = new JLabel("Nom");
-	topCenterPan.add(nameProductLabel);
+	JPanel voidMidTop = new JPanel();
+	topCenterPan.add(voidMidTop);
 	
-	JLabel creationDateLabel = new JLabel("Date de Cr\u00E9ation");
-	topCenterPan.add(creationDateLabel);
+	JPanel voidTopRight = new JPanel();
+	topCenterPan.add(voidTopRight);
 	
-	JLabel creationUserLabel = new JLabel("Utilisateur");
-	topCenterPan.add(creationUserLabel);
+	numberCmdTxtFld = new JTextField();
+	topCenterPan.add(numberCmdTxtFld);
+	numberCmdTxtFld.setColumns(10);
 	
-	String product[]= {"Product","Ustensil","Ingrédient"};
-	combobox = new JComboBox(product);
-	topCenterPan.add(combobox);
+	JPanel voidMidLeft = new JPanel();
+	topCenterPan.add(voidMidLeft);
 	
-	textNomField = new JTextField();
-	topCenterPan.add(textNomField);
-	textNomField.setColumns(10);
+	JPanel voidLeftMid = new JPanel();
+	topCenterPan.add(voidLeftMid);
 	
-	JLabel textPDateField = new JLabel("");
-	textPDateField.setOpaque(true);
-	textPDateField.setBackground(Color.WHITE);
-	topCenterPan.add(textPDateField);
-	
-	JLabel textPUserField = new JLabel("");
-	textPUserField.setOpaque(true);
-	textPUserField.setBackground(Color.WHITE);
-	topCenterPan.add(textPUserField);
-	
-	JPanel voidBotLeft = new JPanel();
-	topCenterPan.add(voidBotLeft);
+	JPanel voidRightMid = new JPanel();
+	topCenterPan.add(voidRightMid);
 	
 	JPanel voidBotMidLeft = new JPanel();
 	topCenterPan.add(voidBotMidLeft);
@@ -159,130 +155,108 @@ private void topPanelCenter() {
 	
 	JPanel voidBotRight = new JPanel();
 	topCenterPan.add(voidBotRight);
+	
+	JButton surchCmdBtn = new JButton("Rechercher");
+	topCenterPan.add(surchCmdBtn);
 }
 private void midCenterPan() {
+	/*Mid of center Pan*/
 	JPanel middleCenterPan = new JPanel();
-	middleCenterPan.setPreferredSize(new Dimension(400, 260));
+	middleCenterPan.setPreferredSize(new Dimension(400, 565));
 	centerPanSto.add(middleCenterPan);
 	
-	JPanel topMidCenterPan = new JPanel();
-	topMidCenterPan.setLayout(new GridLayout(3,5));
-	topMidCenterPan.setPreferredSize(new Dimension(400, 130));
-	middleCenterPan.add(topMidCenterPan);
+	JLabel resumeTitleLbl = new JLabel("R\u00E9capitulatif de la commande");
+	middleCenterPan.add(resumeTitleLbl);
+
+	/*contactNumberTxtF = new JTextField();
+	topMidCenterPan.add(contactNumberTxtF);
+	contactNumberTxtF.setColumns(10);*/
 	
-	JPanel voidSupTopLeft = new JPanel();
-	topMidCenterPan.add(voidSupTopLeft);
+	JPanel resumeContainerPnl = new JPanel();
+	resumeContainerPnl.setBackground(Color.WHITE);
+	resumeContainerPnl.setBorder(new LineBorder(new Color(0, 0, 0)));
+	resumeContainerPnl.setPreferredSize(new Dimension(400, 290));
+	middleCenterPan.add(resumeContainerPnl);
 	
-	JPanel voidSupTopMidLeft = new JPanel();
-	topMidCenterPan.add(voidSupTopMidLeft);
-	
-	JLabel supplierTitle = new JLabel("Fournisseur");
-	supplierTitle.setHorizontalAlignment(SwingConstants.CENTER);
-	topMidCenterPan.add(supplierTitle);
-	
-	JPanel voidSupTopMidRight = new JPanel();
-	topMidCenterPan.add(voidSupTopMidRight);
-	
-	JPanel voidSupTopRight = new JPanel();
-	topMidCenterPan.add(voidSupTopRight);
-	
-	JPanel voidSupMidLeft = new JPanel();
-	topMidCenterPan.add(voidSupMidLeft);
-	
-	JPanel voidSupMidMidLeft = new JPanel();
-	topMidCenterPan.add(voidSupMidMidLeft);
-	
-	JLabel brandTitle = new JLabel("Marque");
-	brandTitle.setHorizontalAlignment(SwingConstants.CENTER);
-	topMidCenterPan.add(brandTitle);
-	
-	JPanel voidSupMidMidRight = new JPanel();
-	topMidCenterPan.add(voidSupMidMidRight);
-	
-	JLabel articlePriceTitle = new JLabel("Prix Unitaire");
-	articlePriceTitle.setHorizontalAlignment(SwingConstants.CENTER);
-	topMidCenterPan.add(articlePriceTitle);
-	
-	JComboBox comboBox = new JComboBox();
-	topMidCenterPan.add(comboBox);
-	
-	JPanel voidSupBotMidLeft = new JPanel();
-	topMidCenterPan.add(voidSupBotMidLeft);
-	
-	textField_2 = new JTextField();
-	topMidCenterPan.add(textField_2);
-	textField_2.setColumns(10);
-	
-	JPanel voidSupBotMidRight = new JPanel();
-	topMidCenterPan.add(voidSupBotMidRight);
-	
-	textField_3 = new JTextField();
-	topMidCenterPan.add(textField_3);
-	textField_3.setColumns(10);
-	
-	JPanel addAndResultPan = new JPanel();
-	addAndResultPan.setPreferredSize(new Dimension(400, 130));
+	JLabel testResultPnl = new JLabel("Ustensil - Fouet - 1 - 16.00\u20AC - En stock");
+	resumeContainerPnl.add(testResultPnl);
+
+	addAndResultPan = new JPanel();
+	addAndResultPan.setPreferredSize(new Dimension(400, 265));
 	middleCenterPan.add(addAndResultPan);
+
+	JLabel modifPartLbl = new JLabel("Partie Modifications");
+	addAndResultPan.add(modifPartLbl);
 	
-	addAndResultPan.add(btnNewButtonTest);
 	
-	JPanel controlResultPan = new JPanel(new GridLayout(3,1));
-	controlResultPan.setPreferredSize(new Dimension(300, 80));
-	addAndResultPan.add(controlResultPan);
-	
-	JLabel lblNewLabel = new JLabel("Le product a \u00E9t\u00E9 ajout\u00E9 \u00E0 la liste");
-	lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel.setOpaque(true);
-	lblNewLabel.setBackground(Color.GREEN);
-	controlResultPan.add(lblNewLabel);
-	
-	JLabel lblNewLabel_6 = new JLabel("Le product existe d\u00E9j\u00E0");
-	lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel_6.setOpaque(true);
-	lblNewLabel_6.setBackground(Color.ORANGE);
-	controlResultPan.add(lblNewLabel_6);
-	
-	JLabel lblNewLabel_7 = new JLabel("Le product n'est pas conforme");
-	lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel_7.setOpaque(true);
-	lblNewLabel_7.setBackground(Color.RED);
-	controlResultPan.add(lblNewLabel_7);
 }
-private void botCenterPan() {
-	JPanel botCenterPan = new JPanel();
-	botCenterPan.setPreferredSize(new Dimension(400, 150));
-	centerPanSto.add(botCenterPan);
+private void controlResultPan() {
+	GridLayout gl_modifPartPan = new GridLayout(4,3);
+	gl_modifPartPan.setVgap(20);
+	gl_modifPartPan.setHgap(20);
+	JPanel modifPartPan = new JPanel(gl_modifPartPan);
+	modifPartPan.setPreferredSize(new Dimension(400, 200));
+	addAndResultPan.add(modifPartPan);
 	
-	JLabel productListTitle = new JLabel("Liste des Products :");
-	botCenterPan.add(productListTitle);
+	JLabel productLbl = new JLabel("Product");
+	productLbl.setHorizontalAlignment(SwingConstants.CENTER);
+	modifPartPan.add(productLbl);
+
+	JLabel nameLbl = new JLabel("Nom");
+	nameLbl.setHorizontalAlignment(SwingConstants.CENTER);
+	modifPartPan.add(nameLbl);
+
+	JLabel costLbl = new JLabel("Cout Unitaire");
+	costLbl.setHorizontalAlignment(SwingConstants.CENTER);
+	modifPartPan.add(costLbl);
 	
-	JPanel productListPan = new JPanel(new FlowLayout());
-	productListPan.setBackground(Color.WHITE);
-	productListPan.setBorder(new LineBorder(new Color(0, 0, 0)));
-	productListPan.setPreferredSize(new Dimension(300, 100));
-	botCenterPan.add(productListPan);
+	JLabel autoProLbl = new JLabel("");
+	modifPartPan.add(autoProLbl);
 	
-	JLabel product_1 = new JLabel("Ustensil-Fouet-G\u00F6ma-16.00\u20AC");
-	productListPan.add(product_1);
+	JLabel autoNamLbl = new JLabel("");
+	modifPartPan.add(autoNamLbl);
 	
-	JButton btnProduct_1 = new JButton("X");
-	productListPan.add(btnProduct_1);
+	JLabel autoCosLbl = new JLabel("");
+	modifPartPan.add(autoCosLbl);
+
+	JLabel quantityLbl = new JLabel("Quantit\u00E9");
+	quantityLbl.setHorizontalAlignment(SwingConstants.CENTER);
+	modifPartPan.add(quantityLbl);
+	
+	JPanel voidCenterTopPnl = new JPanel();
+	modifPartPan.add(voidCenterTopPnl);
+	
+	JLabel statuLbl = new JLabel("Etat");
+	statuLbl.setHorizontalAlignment(SwingConstants.CENTER);
+	modifPartPan.add(statuLbl);
+	
+	qttTxtFld = new JTextField();
+	modifPartPan.add(qttTxtFld);
+	qttTxtFld.setColumns(10);
+	
+	JPanel voidCenterBotPnl = new JPanel();
+	modifPartPan.add(voidCenterBotPnl);
+	
+	statuTxtFld = new JTextField();
+	modifPartPan.add(statuTxtFld);
+	statuTxtFld.setColumns(10);
 }
+
 private void rightSection() {
-	JPanel rightPanSto = new JPanel(new FlowLayout());
-	rightPanSto.setBorder(new LineBorder(new Color(0, 0, 0)));
-	rightPanSto.setPreferredSize(new Dimension(400, 525));
+	JPanel rightPanPro = new JPanel(new FlowLayout());
+	rightPanPro.setBorder(new LineBorder(new Color(0, 0, 0)));
+	rightPanPro.setPreferredSize(new Dimension(400, 680));
 
 	inContentPaneSto.add(leftPanSto, BorderLayout.WEST);
 	inContentPaneSto.add(centerPanSto);
-	inContentPaneSto.add(rightPanSto, BorderLayout.EAST);
+	inContentPaneSto.add(rightPanPro, BorderLayout.EAST);
 	
 	JLabel lblNewLabel_3 = new JLabel("Recherche");
-	rightPanSto.add(lblNewLabel_3);
+	rightPanPro.add(lblNewLabel_3);
 	
 	JPanel surchPan = new JPanel();
-	surchPan.setPreferredSize(new Dimension(400, 50));
-	rightPanSto.add(surchPan);
+	surchPan.setPreferredSize(new Dimension(400, 90));
+	rightPanPro.add(surchPan);
 	
 	textField_1 = new JTextField();
 	surchPan.add(textField_1);
@@ -294,17 +268,17 @@ private void rightSection() {
 	
 	bddPan = new JTabbedPane(JTabbedPane.TOP);
 	bddPan.setBorder(new LineBorder(new Color(0, 0, 0)));
-	rightPanSto.add(bddPan);
+	rightPanPro.add(bddPan);
 }
 private void stockPage() {
-	JPanel ProPanPac = new JPanel();
-	ProPanPac.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Fournisseur", null, ProPanPac, null);
+	JPanel proPanPac = new JPanel();
+	proPanPac.setPreferredSize(new Dimension(400, 580));
+	bddPan.addTab("Fournisseur", null, proPanPac, null);
 	
 	/*Section Table*/
 	JPanel tablePan = new JPanel();
-	tablePan.setPreferredSize(new Dimension(380, 350));
-	ProPanPac.add(tablePan);
+	tablePan.setPreferredSize(new Dimension(380, 450));
+	proPanPac.add(tablePan);
 	/*Table Model*/
 	DefaultTableModel model = new DefaultTableModel(30,5);
 	condUniTable = new JTable(model);
@@ -317,13 +291,13 @@ private void stockPage() {
 		}
 	/*Scrollable Table*/
 	JScrollPane condUniTableSP= new JScrollPane (condUniTable);
-	condUniTableSP.setPreferredSize(new Dimension(380, 350) );
+	condUniTableSP.setPreferredSize(new Dimension(380, 450) );
 	
 	tablePan.add(condUniTableSP);
 	
 	/*Buttons section*/
 	JPanel btnTabblePan = new JPanel();
-	ProPanPac.add(btnTabblePan, BorderLayout.SOUTH);
+	proPanPac.add(btnTabblePan, BorderLayout.SOUTH);
 	
 	JButton btnCreatBdd = new JButton("Cr\u00E9er");
 	btnTabblePan.add(btnCreatBdd);
@@ -336,22 +310,25 @@ private void stockPage() {
 }
 private void otherPage() {
 	/*Page Fournisseur*/
-	JPanel supPanSto = new JPanel();
-	supPanSto.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Product", null, supPanSto, null);
+	JPanel supPanSup = new JPanel();
+	supPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Product", null, supPanSup, null);
 	
 
 	
 	/*Page Commande*/
 	
-	JPanel pacPanSto = new JPanel();
-	pacPanSto.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Commande", null, pacPanSto, null);
+	JPanel pacPanSup = new JPanel();
+	pacPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Commande", null, pacPanSup, null);
 	
 	/*Page Stock*/
 	
-	JPanel stoPanSto = new JPanel();
-	stoPanSto.setPreferredSize(new Dimension(400, 500));
-	bddPan.addTab("Stock", null, stoPanSto, null);
+	JPanel stoPanSup = new JPanel();
+	stoPanSup.setPreferredSize(new Dimension(400, 500));
+	bddPan.addTab("Stock", null, stoPanSup, null);
 }
+
+
+
 }
