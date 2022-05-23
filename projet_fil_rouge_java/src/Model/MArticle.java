@@ -16,6 +16,8 @@ public class MArticle extends MyConnexion{
 	private static DefaultTableModel model;
 	private MyConnexion co = new MyConnexion();
 	private String [] showSup = new String[1];
+	private String supOriginTxt="";
+	private ResultSet resultattest;
 	
 	public MArticle() {
 		test();
@@ -62,6 +64,78 @@ public class MArticle extends MyConnexion{
 		}catch (Exception e) {
 			System.err.println("Erreur d'affichage d'ing: " + e.getMessage());
 		}			
+	}
+	
+	public void insertSellBy(String supName, String artName) {
+		try {
+			String originFocus = supOrigin(supName);
+			String Id_supplier = supId(supName);
+			String Id_article = artId(artName);
+			co.openConnection();
+			String query="INSERT INTO sell_by (Id_supplier, Id_article, origin) values (?,?,?)";
+			PreparedStatement declaration= accessDataBase.prepareStatement(query);
+			declaration.setString(1, Id_supplier);
+			declaration.setString(2, Id_article);
+			declaration.setString(3, originFocus);
+			declaration.executeUpdate();
+			
+			co.closeConnection();
+			System.out.println("fin requête read");
+		}catch (Exception e) {
+			System.err.println("Erreur d'affichage d'ing: " + e.getMessage());
+		}			
+	}
+	public String supOrigin(String supName){
+		try {
+			co.openConnection();
+			String query="SELECT address FROM  supplier WHERE name=? ";
+			PreparedStatement declarationSupOrigin= accessDataBase.prepareStatement(query);
+			declarationSupOrigin.setString(1, supName);
+			//declarationSupOrigin.executeUpdate();
+			ResultSet resultat=declarationSupOrigin.executeQuery(query);
+			supOriginTxt=resultat.getString("address");
+			co.closeConnection();
+			System.out.println("fin requête supOrigin");
+			
+		}catch(Exception e) {
+			System.err.println("Erreur d'affichage d'ing(supOrigin): " + e.getMessage());
+		}
+		return supOriginTxt;
+		//return resultat;
+	}
+	public String supId(String supName){
+		try {
+			co.openConnection();
+			//String query="SELECT Id_supplier FROM  supplier WHERE name=? ";
+			PreparedStatement declarationSupOrigin= accessDataBase.prepareStatement("SELECT Id_supplier FROM  supplier WHERE name=? ");
+			declarationSupOrigin.setString(1, supName);
+			//declarationSupOrigin.executeUpdate();
+			ResultSet resultat=declarationSupOrigin.executeQuery();
+			supOriginTxt=resultat.getString("Id_supplier");
+			co.closeConnection();
+			System.out.println("fin requête supId");
+			
+		}catch(Exception e) {
+			System.err.println("Erreur d'affichage d'ing(supId): " + e.getMessage());
+		}
+		return supOriginTxt;
+	}
+	public String artId(String artName){
+		try {
+			co.openConnection();
+			String query="SELECT art.Id_article FROM  article art WHERE name=?; ";
+			PreparedStatement declarationSupOrigin= accessDataBase.prepareStatement(query);
+			declarationSupOrigin.setString(1, artName);
+			//declarationSupOrigin.executeUpdate();
+			ResultSet resultat=declarationSupOrigin.executeQuery();
+			supOriginTxt=resultat.getString("Id_article");
+			co.closeConnection();
+			System.out.println("fin requête artId");
+			
+		}catch(Exception e) {
+			System.err.println("Erreur d'affichage d'ing(artId): " + e.getMessage());
+		}
+		return supOriginTxt;
 	}
 	public String[] supChoiceCBSet(){
 		try {

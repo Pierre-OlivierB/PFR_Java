@@ -66,7 +66,9 @@ public class Product extends JPanel{
 	private Date date = new Date();
 	private SimpleDateFormat currentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	private JLabel textPUserField = new JLabel("");
-	DefaultTableModel modelPoduct = new DefaultTableModel(30,5);
+	private DefaultTableModel modelPoduct = new DefaultTableModel(30,5);
+	private JComboBox supChoiceCB = new JComboBox();
+	private String supChoice [];
 	
 	//@SuppressWarnings("unused")
 	//private MyConnexion con = new MyConnexion();
@@ -136,7 +138,8 @@ private void btnProductDelChoiceListener(ActionEvent event) {
 System.out.println("btn del");
 }
 private void btnProductAddtoListListener(ActionEvent event) {
-	try {
+	if (brandNameTxt.getText().isEmpty()){
+		try {
 		art.insertProduct(textNomField.getText(), brandNameTxt.getText(), textPUserField.getText());
 	}catch(Exception e){
 		System.err.println("Erreur de donnée: " + e.getMessage());
@@ -148,14 +151,26 @@ private void btnProductAddtoListListener(ActionEvent event) {
 	}catch(Exception e) {
 		System.out.println(e);
 	}
+	}
+	else {
+		try {
+			art.insertProduct(textNomField.getText(), brandNameTxt.getText(), textPUserField.getText());
+			//art.insertSellBy(textNomField.getText(), supChoiceCB.getSelectedItem().toString());
+			System.out.println(supChoiceCB.getSelectedItem().toString());
+			//System.out.println(art.supId(supChoiceCB.getSelectedItem().toString()));
+			//System.out.println("supid");
+			//System.out.println(art.artId(textNomField.getText()));
+			//System.out.println("artId");
+			//System.out.println(art.supOrigin(brandNameTxt.getText()));
+			//System.out.println("supOrigin");
+		}catch(Exception e) {
+			System.err.println("Erreur de donnée: " + e.getMessage());
+			lblNotOk.setVisible(true);
+		}
+	}
+	
 	
 }
-/*private void lineFocuscondUniTableListener(MouseEvent event) {
-	int i = condUniTable.getSelectedRow();
-	modelPoduct = (DefaultTableModel) condUniTable.getModel();
-	textNomField.setText((String) modelPoduct.getValueAt(i, 2));
-	brandNameTxt.setText((String) modelPoduct.getValueAt(i, 3));
-}*/
 private void productFrame() {
 	/*tabbedPane.addTab("Product", null, productPan, null);*/
 	inContentPanePro = new JPanel();
@@ -275,8 +290,8 @@ private void midCenterPan() {
 	topMidCenterPan.add(articlePriceTitle);
 	
 	//add Supplier choice off bdd to CB
-	String supChoice [] = art.supChoiceCBSet();
-	JComboBox supChoiceCB = new JComboBox(supChoice);
+	supChoice = art.supChoiceCBSet();
+	supChoiceCB = new JComboBox(supChoice);
 	topMidCenterPan.add(supChoiceCB);
 	
 	JPanel voidSupBotMidLeft = new JPanel();
