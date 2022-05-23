@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -24,6 +27,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -47,7 +52,6 @@ public class Product extends JPanel{
 	private JComboBox combobox; 
 	private JTextField textNomField;
 	private JTextField textPDateField;
-	private JTextField textPUserField;
 	private JTextField brandNameTxt;
 	private JTextField priceProTxt;
 	private JPanel contentPane;
@@ -61,6 +65,8 @@ public class Product extends JPanel{
 	private JLabel lblNotOk = new JLabel("Le product n'est pas conforme");
 	private Date date = new Date();
 	private SimpleDateFormat currentDateTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	private JLabel textPUserField = new JLabel("");
+	DefaultTableModel modelPoduct = new DefaultTableModel(30,5);
 	
 	//@SuppressWarnings("unused")
 	//private MyConnexion con = new MyConnexion();
@@ -130,10 +136,26 @@ private void btnProductDelChoiceListener(ActionEvent event) {
 System.out.println("btn del");
 }
 private void btnProductAddtoListListener(ActionEvent event) {
-	art.insertProduct(textNomField.getText(), brandNameTxt.getText(), textPUserField.getText());
-
+	try {
+		art.insertProduct(textNomField.getText(), brandNameTxt.getText(), textPUserField.getText());
+	}catch(Exception e){
+		System.err.println("Erreur de donnée: " + e.getMessage());
+		lblNotOk.setVisible(true);
+	}
 	lblSuccessAdd.setVisible(true);
+	try {
+		condUniTable.setModel(art.readAll());
+	}catch(Exception e) {
+		System.out.println(e);
+	}
+	
 }
+/*private void lineFocuscondUniTableListener(MouseEvent event) {
+	int i = condUniTable.getSelectedRow();
+	modelPoduct = (DefaultTableModel) condUniTable.getModel();
+	textNomField.setText((String) modelPoduct.getValueAt(i, 2));
+	brandNameTxt.setText((String) modelPoduct.getValueAt(i, 3));
+}*/
 private void productFrame() {
 	/*tabbedPane.addTab("Product", null, productPan, null);*/
 	inContentPanePro = new JPanel();
@@ -191,7 +213,7 @@ private void topPanelCenter() {
 	textPDateField.setText(currentDateTime.format(date));
 	topCenterPan.add(textPDateField);
 	
-	JLabel textPUserField = new JLabel("");
+	
 	textPUserField.setOpaque(true);
 	textPUserField.setBackground(Color.WHITE);
 	textPUserField.setText("1");
@@ -360,8 +382,19 @@ private void productPage() {
 	tablePan.setPreferredSize(new Dimension(380, 450));
 	ProPanPro.add(tablePan);
 	/*Table Model*/
-	DefaultTableModel model = new DefaultTableModel(30,5);
-	condUniTable = new JTable(model);
+	
+	condUniTable = new JTable(modelPoduct);
+	condUniTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		public void valueChanged(ListSelectionEvent e) {
+			int i = condUniTable.getSelectedRow();
+			//modelPoduct = (DefaultTableModel) condUniTable.getModel();
+			textNomField.setText((String) condUniTable.getValueAt(i, 1));
+			brandNameTxt.setText((String) condUniTable.getValueAt(i, 2));
+			priceProTxt.setText((String) condUniTable.getValueAt(i, 3));
+		}
+		
+	});
+
 	/*Columns name*/
 	String col[] = {"Product","Nom","Fournisseur","Prix","Date Ajout"};
 	

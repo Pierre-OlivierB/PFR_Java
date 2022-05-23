@@ -54,7 +54,7 @@ public class MArticle extends MyConnexion{
 			PreparedStatement declaration= accessDataBase.prepareStatement(query);
 			declaration.setString(1, name);
 			declaration.setString(2, brand);
-			declaration.setString(4, user);
+			declaration.setString(3, user);
 			declaration.executeUpdate();
 			
 			co.closeConnection();
